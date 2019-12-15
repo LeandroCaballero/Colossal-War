@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/GUI.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/LifeBar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/BombCounter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/RupeeCounter.tscn" type="PackedScene" id=4]
+
+[node name="GUI" type="CanvasLayer" groups=[
+"GAME",
+]]
+script = ExtResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1002.0
+margin_bottom = 100.0
+
+[node name="Bars" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 774.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="LifeBar" parent="HBoxContainer/Bars" instance=ExtResource( 2 )]
+margin_right = 774.0
+
+[node name="Gauge" parent="HBoxContainer/Bars/LifeBar" index="1"]
+value = 100.0
+
+[node name="Counters" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 778.0
+margin_top = 20.0
+margin_right = 982.0
+margin_bottom = 60.0
+size_flags_vertical = 4
+
+[node name="WoodCounter" parent="HBoxContainer/Counters" instance=ExtResource( 3 )]
+margin_bottom = 40.0
+
+[node name="StoneCounter" parent="HBoxContainer/Counters" instance=ExtResource( 4 )]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 40.0
+
+
+[editable path="HBoxContainer/Bars/LifeBar"]

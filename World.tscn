@@ -1,0 +1,148 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Music/Captain Claw - Level 01 Music.ogg" type="AudioStream" id=1]
+[ext_resource path="res://img/Escenario/3- piso arriba.png" type="Texture" id=2]
+[ext_resource path="res://img/Escenario/2- piso abajo.png" type="Texture" id=3]
+[ext_resource path="res://img/Escenario/8- roca 1.png" type="Texture" id=4]
+[ext_resource path="res://img/Escenario/9- roca 2.png" type="Texture" id=5]
+[ext_resource path="res://img/Escenario/4- casa 1.png" type="Texture" id=6]
+[ext_resource path="res://img/Escenario/5- casa 2.png" type="Texture" id=7]
+[ext_resource path="res://img/Escenario/6- casa 3.png" type="Texture" id=8]
+[ext_resource path="res://img/Escenario/1- piso.png" type="Texture" id=9]
+[ext_resource path="res://img/Fondo/FondoBlanco.png" type="Texture" id=10]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Home.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Reino.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Code/Spawn1.gd" type="Script" id=15]
+[ext_resource path="res://Code/Spawn.gd" type="Script" id=16]
+[ext_resource path="res://Enemy 2.tscn" type="PackedScene" id=17]
+
+[sub_resource type="SegmentShape2D" id=1]
+a = Vector2( -3.206, 440 )
+b = Vector2( 2165.84, 441.773 )
+
+[sub_resource type="NavigationPolygon" id=2]
+vertices = PoolVector2Array( -171.114, 277.003, -175.41, 100.871, 1997.22, 101.886, 108.121, 272.707, 1482.82, 278.435, 1493.85, 281.396, 1995.37, 281.396 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 2 ), PoolIntArray( 5, 4, 2, 6 ) ]
+outlines = [ PoolVector2Array( -175.41, 100.871, 1997.22, 101.886, 1995.37, 281.396, 1493.85, 281.396, 1482.82, 278.435, 108.121, 272.707, -171.114, 277.003 ) ]
+
+[sub_resource type="TileSet" id=3]
+0/name = "1- piso.png 0"
+0/texture = ExtResource( 9 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 144, 24, 120, 120 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+
+[node name="World" type="Node2D"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+
+[node name="Suelo" type="StaticBody2D" parent="."]
+position = Vector2( -61.4915, 53.5793 )
+
+[node name="Arriba" type="Sprite" parent="Suelo"]
+position = Vector2( 1087.11, 363.732 )
+scale = Vector2( 0.245767, 0.113 )
+texture = ExtResource( 2 )
+
+[node name="Abajo" type="Sprite" parent="Suelo"]
+position = Vector2( 1088.49, 548.404 )
+scale = Vector2( 0.245967, 0.113353 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Suelo"]
+position = Vector2( 1, 27.3607 )
+shape = SubResource( 1 )
+
+[node name="Roca 1" type="Sprite" parent="Suelo"]
+position = Vector2( 590.343, 375.99 )
+scale = Vector2( 0.0531616, 0.0531616 )
+texture = ExtResource( 4 )
+
+[node name="Roca 2" type="Sprite" parent="Suelo"]
+position = Vector2( 848.93, 402.055 )
+scale = Vector2( 0.0816597, 0.0816597 )
+texture = ExtResource( 5 )
+
+[node name="Navigation2D" type="Navigation2D" parent="Suelo"]
+position = Vector2( 170.195, 278.874 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Suelo/Navigation2D"]
+navpoly = SubResource( 2 )
+
+[node name="Casa 1" type="Sprite" parent="."]
+position = Vector2( 31.2738, 419.869 )
+scale = Vector2( 0.089246, 0.089246 )
+texture = ExtResource( 6 )
+
+[node name="Casa 2" type="Sprite" parent="."]
+position = Vector2( -43.7569, 423.575 )
+scale = Vector2( 0.0751604, 0.0751604 )
+texture = ExtResource( 7 )
+
+[node name="Casa 3" type="Sprite" parent="."]
+position = Vector2( -5.9026, 412.284 )
+scale = Vector2( 0.066491, 0.066491 )
+texture = ExtResource( 8 )
+
+[node name="Casa 4" type="Sprite" parent="."]
+position = Vector2( 78.4855, 414.043 )
+scale = Vector2( 0.066491, 0.066491 )
+texture = ExtResource( 8 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( -53.4915, 53.5793 )
+z_index = -1
+tile_set = SubResource( 3 )
+cell_size = Vector2( 4, 4 )
+format = 1
+tile_data = PoolIntArray( 6619136, 0, 0, 6619166, 0, 0, 6619196, 0, 0, 6619226, 0, 0, 6619256, 0, 0, 6619286, 0, 0, 6619316, 0, 0, 6619346, 0, 0, 6619376, 0, 0, 6619406, 0, 0, 6619436, 0, 0, 6619466, 0, 0, 6619496, 0, 0, 6619526, 0, 0, 6619556, 0, 0, 6619586, 0, 0, 6619616, 0, 0, 6619646, 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 683.151, 193.531 )
+scale = Vector2( 0.152488, 0.129497 )
+z_index = -1
+texture = ExtResource( 10 )
+
+[node name="Enemy" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1155.88, 507.991 )
+
+[node name="Bulin" parent="." instance=ExtResource( 12 )]
+position = Vector2( 834.405, 464.894 )
+
+[node name="Player" parent="." instance=ExtResource( 13 )]
+position = Vector2( 497.372, 256.29 )
+
+[node name="Reino" parent="." instance=ExtResource( 14 )]
+position = Vector2( -44.1313, 63.8129 )
+
+[node name="Spawn1" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( 2037.75, 520.555 )
+script = ExtResource( 15 )
+coloso2 = ExtResource( 11 )
+
+[node name="Timer" type="Timer" parent="Spawn1"]
+wait_time = 15.0
+autostart = true
+
+[node name="Spawn2" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( 2058.56, 515.474 )
+script = ExtResource( 16 )
+coloso2 = ExtResource( 17 )
+
+[node name="Timer" type="Timer" parent="Spawn2"]
+wait_time = 10.0
+autostart = true
+[connection signal="timeout" from="Spawn1/Timer" to="Spawn1" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Spawn2/Timer" to="Spawn2" method="_on_Timer_timeout"]

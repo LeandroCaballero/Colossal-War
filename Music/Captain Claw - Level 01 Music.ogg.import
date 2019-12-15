@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Captain Claw - Level 01 Music.ogg-39ef225d6052b0cf7c83878b48a54f41.oggstr"
+
+[deps]
+
+source_file="res://Music/Captain Claw - Level 01 Music.ogg"
+dest_files=[ "res://.import/Captain Claw - Level 01 Music.ogg-39ef225d6052b0cf7c83878b48a54f41.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

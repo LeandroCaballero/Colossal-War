@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Code/Control.gd" type="Script" id=1]
+[ext_resource path="res://img/inicio.jpg" type="Texture" id=2]
+[ext_resource path="res://img/button/UI/buttonLarge.png" type="Texture" id=3]
+[ext_resource path="res://img/Font/kenvector_future.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://img/Font/kenvector_future_thin.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 70
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 5 )
+
+[node name="Node" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 1 )
+
+[node name="Background" type="NinePatchRect" parent="Control"]
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+margin_left = 761.0
+margin_top = 351.0
+margin_right = 957.0
+margin_bottom = 514.0
+
+[node name="Empezar" type="TextureButton" parent="Control/VBoxContainer"]
+margin_right = 196.0
+margin_bottom = 70.0
+texture_normal = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Empezar"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -98.629
+margin_top = 17.4756
+margin_right = 95.371
+margin_bottom = 78.4756
+custom_fonts/font = SubResource( 1 )
+text = "COMENZAR
+"
+align = 1
+
+[node name="Quit" type="TextureButton" parent="Control/VBoxContainer"]
+margin_top = 74.0
+margin_right = 196.0
+margin_bottom = 144.0
+texture_normal = ExtResource( 3 )
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/Quit"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -98.5673
+margin_top = 11.6741
+margin_right = 98.4327
+margin_bottom = 82.6741
+custom_fonts/font = SubResource( 1 )
+text = "SALIR
+"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -276.544
+margin_top = 18.6157
+margin_right = 299.456
+margin_bottom = 121.616
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Colossal War"
+[connection signal="pressed" from="Control/VBoxContainer/Empezar" to="Control" method="_on_Empezar_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Quit" to="Control" method="_on_Quit_pressed"]
