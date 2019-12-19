@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/espada2.ogg-648002cc35d59b979f301990bfce3b33.oggstr"
+
+[deps]
+
+source_file="res://Music/espada2.ogg"
+dest_files=[ "res://.import/espada2.ogg-648002cc35d59b979f301990bfce3b33.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

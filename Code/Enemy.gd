@@ -1,38 +1,39 @@
 extends Area2D
 
 onready var hit = preload("res://slash.tscn")
- 
+onready var gold = preload("res://Gold.tscn")
+onready var game = get_tree().get_current_scene() #tomas el arbol entero y elegis la escena actual
 onready var hit_class = preload("res://slash.gd")
-onready var home_class = preload("res://Code/Home.gd")
+onready var spriteAnim = $Animacion
 
 enum state { IDLE = 0, SEARCH, ATTACK}
 
 var currentState = state.IDLE
-
-var life : int = 40
-
+var life : int = 100
 var aldeanos : Array
-
-# Called when the node enters the scene tree for the first time.
+var HPBar
 
 func _ready():
 	aldeanos = get_tree().get_nodes_in_group("Aldeanos")
+	HPBar = get_tree().get_nodes_in_group("HPBar")[0]
 	pass # Replace with function body.
 
-var posCasa = null
-
 var attackReady = false
+var targetPos : Vector2 = Vector2.ZERO
+var targetRef = null
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	actualizarHPBar()
 	if( currentState == state.IDLE and aldeanos.size() > 0):
-		posCasa = aldeanos[0].position
+		targetRef = aldeanos[0]
+		targetPos = targetRef.position
 		currentState = state.SEARCH
+
+	var distance = position.x - targetPos.x
 	
-	var distance = position.x - posCasa.x
 	if(currentState == state.SEARCH):
 		if (distance >= 100):
-			mover(posCasa, delta)
+			mover(targetPos, delta)
 		else:
 			attackReady = true
 			currentState = state.ATTACK
@@ -40,41 +41,43 @@ func _process(delta):
 		attackBastards()
 
 func mover(pos: Vector2, delta):
+	spriteAnim.play("Run")
 	var subDistance = position.x - pos.x
-#	position += velocity
 	position.x -= subDistance * delta * 0.5
 
 func attackBastards():
+	spriteAnim.play("Attack")
 	attackReady = false
-
 	get_node("Timer").start()
-#	if (posCasa != null and posCasa is home_class ):
-#	if (posCasa != null and posCasa.name == "Bulin"):
-	if (posCasa != null and posCasa is hit_class == false):
+	if (targetRef != null and targetRef is hit_class == false):
 		var attack = hit.instance()
 		attack.set_position(position)
 		get_parent().add_child(attack)
-#		posCasa.receive_damage(4)
+		get_node("AudioGolpe").play()
+		
 	else:
 		currentState = state.IDLE
+		get_node("AudioGolpe").stop()
 		aldeanos = get_tree().get_nodes_in_group("Aldeanos")
-#		attackReady = false
-
 
 func _on_Timer_timeout():
 	attackReady = true
 	pass # Replace with function body.
 
-func receive_damage( hitPoint : int = 2):
+func receive_damage( hitPoint ):
 	life -= hitPoint
-	print("Life: ", life)
 	if life <= 0:
-		print("Derrotado")
+		var oro = gold.instance()
+		oro.set_position(position)
+		get_parent().call_deferred("add_child", oro)
+		game.puntuar()
 		queue_free()
 
 func _on_Hit_area_entered(area):
-	if area.name == "MeleeHitRight":
-		print("auch!")
-		receive_damage(5)
-		
-	pass # Replace with function body.
+	if area.name == "MeleeHitRight" or area.name == "MeleeHitLeft":
+		receive_damage(25)
+	elif area.name == "Arrow":
+		receive_damage(10)
+
+func actualizarHPBar():
+	HPBar.value = life 

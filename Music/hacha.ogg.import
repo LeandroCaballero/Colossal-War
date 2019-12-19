@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hacha.ogg-e7bf3f3a488f8ed3b15d23ce3838c70a.oggstr"
+
+[deps]
+
+source_file="res://Music/hacha.ogg"
+dest_files=[ "res://.import/hacha.ogg-e7bf3f3a488f8ed3b15d23ce3838c70a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

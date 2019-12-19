@@ -1,7 +1,8 @@
 extends Control
 
 func _on_Empezar_pressed():
-	get_tree().change_scene("res://World.tscn")
+	if get_tree().change_scene("res://World.tscn") != OK:
+		print("Error al cargar la escena")
 	pass # Replace with function body.
 
 func _on_Quit_pressed():
